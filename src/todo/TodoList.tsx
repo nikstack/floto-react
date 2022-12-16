@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useTodo from './useTodo'
 import {
-  Box, Button,
+  Box,
   Checkbox,
   Divider,
   IconButton,
@@ -10,9 +10,11 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  TextField, Typography
+  TextField,
+  Typography
 } from '@mui/material'
 import { Edit } from '@mui/icons-material'
+import { EditTodo } from './Todo'
 
 interface Props {
 }
@@ -26,27 +28,29 @@ const TodoList = ({}: Props) => {
     setDone,
     deleteTodo
   } = useTodo()
-  const [editTodoText, setEditTodoText] = useState<string>('')
-  const [editTodoId, setEditTodoId] = useState<string | undefined>()
+  const [editTodo, setEditTodo] = useState<EditTodo | undefined>()
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (editTodoId) {
-      if (editTodoText.length > 0) {
-        updateTodo({ id: editTodoId, text: editTodoText, done: false })
+    if (!editTodo) {
+      return
+    }
+
+    if (editTodo.id) {
+      if (editTodo.text.length > 0) {
+        updateTodo({ id: editTodo.id, text: editTodo.text, done: false })
       } else {
-        deleteTodo(editTodoId)
+        deleteTodo(editTodo.id)
       }
-    } else if (editTodoText.length > 0) {
+    } else if (editTodo.text.length > 0) {
       addTodo({
-        text: editTodoText,
+        text: editTodo.text,
         done: false
       })
     }
 
-    setEditTodoText('')
-    setEditTodoId(undefined)
+    setEditTodo(undefined)
   }
 
   useEffect(() => {
@@ -59,8 +63,11 @@ const TodoList = ({}: Props) => {
         <form onSubmit={e => handleAddTodo(e)}
               style={{ display: 'flex', alignItems: 'center' }}>
           <TextField sx={{ flexGrow: 1 }} label='Todo' variant='standard'
-                     value={editTodoText}
-                     onChange={e => setEditTodoText(e.target.value)} />
+                     value={editTodo?.text}
+                     onChange={e => setEditTodo({
+                       ...editTodo,
+                       text: e.target.value
+                     })} />
         </form>
       </Box>
 
@@ -73,8 +80,7 @@ const TodoList = ({}: Props) => {
                         secondaryAction={
                           <IconButton edge='end' aria-label='Edit'>
                             <Edit onClick={() => {
-                              setEditTodoId(todo.id)
-                              setEditTodoText(todo.text)
+                              setEditTodo({ id: todo.id, text: todo.text })
                             }} />
                           </IconButton>
                         }

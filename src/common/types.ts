@@ -1,10 +1,10 @@
-import { Typography } from '@mui/material';
-import { FormEvent, ReactNode } from 'react';
+import { Typography } from '@mui/material'
+import { FormEvent, ReactNode } from 'react'
 
 export interface ChildrenProps {
-    children?: ReactNode;
+  children?: ReactNode;
 }
 
 export type HTMLFormEvent = FormEvent<HTMLFormElement>;
 
-export const T = Typography;
+export const T = Typography

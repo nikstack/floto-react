@@ -1,6 +1,6 @@
 import React from 'react'
 import TodoList from '../todo/TodoList'
-import { Box, Paper, styled } from '@mui/material'
+import { Paper, styled } from '@mui/material'
 
 const Page = styled(Paper)`
   min-height: 100vh;

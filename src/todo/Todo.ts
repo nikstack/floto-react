@@ -6,3 +6,8 @@ export interface BaseTodo {
 export interface Todo extends BaseTodo {
   id: string
 }
+
+export interface EditTodo {
+  id?: string
+  text: string
+}
