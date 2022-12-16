@@ -5,7 +5,6 @@ import { Paper, styled } from '@mui/material'
 const Page = styled(Paper)`
   min-height: 100vh;
   padding: 16px;
-  background-color: ${props => props.theme.palette.background.default};
 `
 
 function App() {
