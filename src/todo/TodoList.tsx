@@ -20,6 +20,7 @@ interface Props {
 }
 
 const TodoList = ({}: Props) => {
+  const emptyEditTodo = { text: '' }
   const {
     todos,
     loadTodos,
@@ -28,7 +29,7 @@ const TodoList = ({}: Props) => {
     setDone,
     deleteTodo
   } = useTodo()
-  const [editTodo, setEditTodo] = useState<EditTodo | undefined>()
+  const [editTodo, setEditTodo] = useState<EditTodo>(emptyEditTodo)
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,7 +51,7 @@ const TodoList = ({}: Props) => {
       })
     }
 
-    setEditTodo(undefined)
+    setEditTodo(emptyEditTodo)
   }
 
   useEffect(() => {
