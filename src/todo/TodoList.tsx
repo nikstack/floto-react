@@ -56,7 +56,15 @@ const TodoList = ({}: Props) => {
 
   useEffect(() => {
     loadTodos()
+    document.addEventListener('keydown', clearEditTodo)
   }, [])
+
+  const clearEditTodo = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault()
+      setEditTodo(emptyEditTodo)
+    }
+  }
 
   return (
     <>
